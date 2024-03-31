@@ -56,12 +56,8 @@ X_train, X_test, Y_train, Y_test=train_test_split(X,Y, test_size=0.5, random_sta
 train_df = pd.concat([X_train, Y_train], axis=1)
 
 all_bills_pairplot = sns.pairplot(train_df, hue="class")
-
-# Save the plot to a file
 all_bills_pairplot.savefig('all_bills_pairplot.pdf')
-
-# Display the plot
-plt.show()
+# plt.show()
 
 X_train_df = pd.concat([X_train, Y_train], axis=1)
 
@@ -70,11 +66,19 @@ X_train_df_class_0 = X_train_df[X_train_df['class'] == 0].drop(columns='class')
 # Pairplot for training data with class value 0
 good_bills_pairplot = sns.pairplot(X_train_df_class_0)
 good_bills_pairplot.savefig('good_bills_pairplot.pdf')
-plt.show()
+# plt.show()
 
 X_train_df_class_1 = X_train_df[X_train_df['class'] == 1].drop(columns='class')
 
 # Pairplot for training data with class value 1
 fake_bills_pairplot = sns.pairplot(X_train_df_class_1)
 fake_bills_pairplot.savefig('fake_bills_pairplot.pdf')
-plt.show()
+# plt.show()
+
+test_df = pd.concat([X_test, Y_test], axis=1)
+
+print(test_df)
+
+# classifier
+test_df['simple_classifier'] = np.where((test_df['f1'] > 2) & (test_df['f2'] > 8) & (test_df['f3'] > 8), 0, 1)
+print(test_df)  
